@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Build outputs
+dist/
+build/
+
+# Env and logs
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store

@@ -1,0 +1,57 @@
+{
+  "name": "@yog4a/nats",
+  "description": "Personal encapsulation module for nats",
+  "version": "1.0.4",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "build:patch": "pnpm version patch && tsup",
+    "build:minor": "pnpm version minor && tsup",
+    "build:major": "pnpm version major && tsup",
+    "version:patch": "pnpm version patch",
+    "version:minor": "pnpm version minor",
+    "version:major": "pnpm version major",
+    "update": "pnpm up --latest",
+    "publish:npm": "pnpm publish --registry https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.2",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@msgpack/msgpack": "^3.1.2",
+    "@nats-io/jetstream": "^3.2.0",
+    "@nats-io/kv": "^3.2.0",
+    "@nats-io/nats-core": "^3.2.0",
+    "@nats-io/transport-node": "^3.2.0",
+    "snappy": "^7.3.3"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    },
+    "./clients": {
+      "types": "./dist/clients.d.ts",
+      "import": "./dist/clients.mjs",
+      "require": "./dist/clients.cjs",
+      "default": "./dist/clients.mjs"
+    },
+    "./modules": {
+      "types": "./dist/modules.d.ts",
+      "import": "./dist/modules.mjs",
+      "require": "./dist/modules.cjs",
+      "default": "./dist/modules.mjs"
+    }
+  }
+}
