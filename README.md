@@ -4,8 +4,7 @@ A personal encapsulation module for [Viem](https://viem.sh), providing enhanced 
 
 ## License
 
-This project is licensed under the **Creative Commons Attribution–NonCommercial 4.0 International License (CC BY-NC 4.0)**.  
-You’re free to use and modify it for personal or open-source projects, **but commercial use is not allowed**.
+This project is licensed under the **Creative Commons Attribution–NonCommercial 4.0 International License (CC BY-NC 4.0)**. You’re free to use and modify it for personal or open-source projects, **but commercial use is not allowed**.
 
 ## Installation
 
