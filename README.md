@@ -1,4 +1,4 @@
-# @yog4a/viem
+# Yog4a | viem
 
 A personal encapsulation module for [Viem](https://viem.sh), providing enhanced functionality.
 
