@@ -7,6 +7,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
+    "prepare": "tsup",
     "build": "tsup",
     "build:patch": "pnpm version patch && tsup",
     "build:minor": "pnpm version minor && tsup",
