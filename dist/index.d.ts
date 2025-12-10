@@ -1,0 +1,12 @@
+import * as jetstream from '@nats-io/jetstream';
+export { jetstream as NatsJetstream };
+import * as kv from '@nats-io/kv';
+export { kv as NatsKv };
+import * as natsCore from '@nats-io/nats-core';
+export { natsCore as NatsCore };
+import * as transportNode from '@nats-io/transport-node';
+export { transportNode as NatsTransportNode };
+import * as msgpack from '@msgpack/msgpack';
+export { msgpack as Msgpack };
+import * as snappy from 'snappy';
+export { snappy as Snappy };
