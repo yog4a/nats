@@ -1,4 +1,4 @@
-import type { ConnectionOptions, NatsConnection } from 'src/libs/nats-transport.js';
+import type { NodeConnectionOptions, NatsConnection } from 'src/libs/nats-transport.js';
 import { connect } from 'src/libs/nats-transport.js';
 import { Logger, Gate } from 'src/classes/index.js';
 
@@ -18,7 +18,7 @@ export class Core {
      * @param debug - Whether to enable debug mode
      */
     constructor(
-        private readonly connectionOptions: ConnectionOptions,
+        private readonly connectionOptions: NodeConnectionOptions,
         private readonly debug: boolean = false,
     ) {}
 

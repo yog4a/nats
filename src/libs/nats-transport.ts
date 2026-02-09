@@ -1,5 +1,5 @@
 export {
-    type ConnectionOptions, 
+    type NodeConnectionOptions, 
     type NatsConnection, 
     type ServerInfo,
     type WithRequired,

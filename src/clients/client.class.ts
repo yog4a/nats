@@ -1,55 +1,50 @@
-import type { ConnectionOptions, NatsConnection, ServerInfo } from "@nats-io/transport-node";
-import type { JetStreamClient, JetStreamManager } from "@nats-io/jetstream";
-
-// Components
-import { Core } from "./core/core.class.js";
-import { Jetstream } from "./core/jetstream.class.js";
-import { Streams } from "./components/streams.module.js";
-import { Consumers } from "./components/consumers.module.js";
+import type { NodeConnectionOptions, NatsConnection } from "src/libs/nats-transport.js";
+import type { JetStreamClient, JetStreamManager } from "src/libs/nats-jetstream.js";
+import { JetstreamCore } from "./core/jetstream.class.js";
+import { streamsModule } from "./modules/streams.module.js";
+import { consumersModule } from "./modules/consumers.module.js";
 
 // Class
 // ===========================================================
 
 export class Client {
-    /* Core (manage NATS connection) */
-    public readonly core: Core;
-    /* Jetstream */
-    public readonly jetstream: Jetstream;
-    /* Streams */
-    public readonly streams: Streams;
-    /* Consumers */
-    public readonly consumers: Consumers;
+    /* Jetstream core */
+    protected readonly core: JetstreamCore;
+    /* Streams component */
+    public readonly streams: ReturnType<typeof streamsModule>;
+    /* Consumers component */
+    public readonly consumers: ReturnType<typeof consumersModule>;
     /**
      * @constructor
      * @param connectionOptions - The connection options for the NATS connection
      * @param debug - Whether to enable debug mode
      */
-    constructor(connectionOptions: ConnectionOptions) {
+    constructor(
+        protected readonly connectionOptions: NodeConnectionOptions,
+        protected readonly debug: boolean = false,
+    ) {
         // Initialize core
-        this.core = new Core(connectionOptions);
-        // Initialize jetstream
-        this.jetstream = new Jetstream(connectionOptions);
+        this.core = new JetstreamCore(connectionOptions, debug);
         // Initialize components
-        this.streams = new Streams(this, connectionOptions.debug);
-        this.consumers = new Consumers(this, connectionOptions.debug);
+        this.streams = streamsModule.call(this);
+        this.consumers = consumersModule.call(this);
     }
 
     // Public (main)
 
-    public getServerInfo(): ServerInfo | undefined {
-        // Get the server info
-        return this.core.nc!.info;
+    public async start(): Promise<void> {
+        // Start the core
+        await this.core.start();
+    }
+
+    public async stop(): Promise<void> {
+        // Stop the core
+        await this.core.stop();
     }
 
     public async isReady(): Promise<void> {
         // Wait for the connection to be ready
         return this.core.connection.enterOrWait();
-    }
-
-    public async shutdown(): Promise<void> {
-        // Drain the connection and close it
-        this.core.logger.info("Shutting down client, draining connection...");
-        await this.core.nc!.drain();
     }
 
     // Public (variables)
@@ -61,11 +56,11 @@ export class Client {
 
     public async getJetstreamClient(): Promise<JetStreamClient> {
         await this.core.connection.enterOrWait();
-        return this.jetstream.js!;
+        return this.core.js!;
     }
 
     public async getJetstreamManager(): Promise<JetStreamManager> {
         await this.core.connection.enterOrWait();
-        return this.jetstream.jsm!;
+        return this.core.jsm!;
     }
 }

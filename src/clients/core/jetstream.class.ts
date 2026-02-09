@@ -1,4 +1,4 @@
-import type { ConnectionOptions, NatsConnection } from 'src/libs/nats-transport.js';
+import type { NodeConnectionOptions, NatsConnection } from 'src/libs/nats-transport.js';
 import type { JetStreamClient, JetStreamManager } from 'src/libs/nats-jetstream.js';
 import { jetstream, jetstreamManager } from 'src/libs/nats-jetstream.js';
 import { connect } from 'src/libs/nats-transport.js';
@@ -22,17 +22,20 @@ export class JetstreamCore {
     private starting: boolean = false;
     /* Stopping flag */
     private stopping: boolean = false;
+    
     /**
      * @constructor
      * @param connectionOptions - The connection options for the NATS connection
      * @param debug - Whether to enable debug mode
      */
     constructor(
-        private readonly connectionOptions: ConnectionOptions,
+        private readonly connectionOptions: NodeConnectionOptions,
         private readonly debug: boolean = false,
     ) {}
 
+    // ===========================================================
     // Public
+    // ===========================================================
 
     public async start(): Promise<void> {
         if (this.starting) {
@@ -45,7 +48,7 @@ export class JetstreamCore {
 
         try {
             if (this.nc || this.js || this.jsm) {
-                await this.stop(true); // Reset connections
+                await this.stop(); // Reset connections
             }
 
             await this.initNatsConnection();
@@ -60,7 +63,7 @@ export class JetstreamCore {
         }
     }
 
-    public async stop(reconnect: boolean = false): Promise<void> {
+    public async stop(): Promise<void> {
         if (this.stopping) {
             if (this.debug) {
                 this.logger.info("Stop already in progress, skipping...");
@@ -87,18 +90,16 @@ export class JetstreamCore {
                 }
             }
             if (this.nc) {
-                if (reconnect) {
-                    try {
-                        // drain the NATS connection
-                        await this.nc.drain();
-                        if (this.debug) {
-                            this.logger.info(`NATS connection drained.`);
-                        }
-                    } catch (error) {
-                        this.logger.error("Error draining NATS connection:",
-                            (error as Error).message
-                        );
+                try {
+                    // drain the NATS connection
+                    await this.nc.drain();
+                    if (this.debug) {
+                        this.logger.info(`NATS connection drained.`);
                     }
+                } catch (error) {
+                    this.logger.error("Error draining NATS connection:",
+                        (error as Error).message
+                    );
                 }
                 try {
                     // close the NATS connection
@@ -123,7 +124,9 @@ export class JetstreamCore {
         }
     }
 
+    // ===========================================================
     // Private
+    // ===========================================================
 
     private async initNatsConnection(attempt: number = 0): Promise<void> {
         if (this.nc) {
@@ -214,7 +217,7 @@ export class JetstreamCore {
             await new Promise(resolve => setTimeout(resolve, delay));
         }
     }
-    
+
     private listenServerEvents(): void {
         const natsConnection = this.nc!;
 
@@ -256,10 +259,10 @@ export class JetstreamCore {
                         break;
                     // Client received a cluster update
                     case "update":
-                        if (s.added && s.added?.length > 0) {
+                        if (s.added && s.added.length > 0) {
                             this.logger.info(`cluster update - ${s.added} added`);
                         }
-                        if (s.deleted && s.deleted?.length > 0) {
+                        if (s.deleted && s.deleted.length > 0) {
                             this.logger.info(`cluster update - ${s.deleted} removed`);
                         }
                         break;

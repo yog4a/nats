@@ -1,4 +1,4 @@
-import type { ConnectionOptions, NatsConnection } from "src/libs/nats-transport.js";
+import type { NodeConnectionOptions, NatsConnection } from "src/libs/nats-transport.js";
 import type { JetStreamClient, JetStreamManager } from "src/libs/nats-jetstream.js";
 import { JetstreamCore } from "./core/jetstream.class.js";
 import { streamsModule } from "./modules/streams.module.js";
@@ -20,7 +20,7 @@ export class JetstreamClient {
      * @param debug - Whether to enable debug mode
      */
     constructor(
-        protected readonly connectionOptions: ConnectionOptions,
+        protected readonly connectionOptions: NodeConnectionOptions,
         protected readonly debug: boolean = false,
     ) {
         // Initialize core
