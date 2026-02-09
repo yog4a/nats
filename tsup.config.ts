@@ -6,15 +6,14 @@ export default defineConfig({
         'src/clients.ts',
         'src/modules.ts',
     ],
-    format: ['cjs', 'esm'],        // ✅ both outputs
-    target: 'es2022',              // better for Node 18+ than esnext
+    format: ['cjs', 'esm'],
+    target: 'es2022',
     outDir: 'dist',
     clean: true,
     dts: true,
     sourcemap: false,
-    splitting: false,              // ✅ keep single-file builds
-    keepNames: true,               // ✅ preserve names
-    external: ['dotenv'],          // ✅ leave externals
+    splitting: false,
+    keepNames: true,
     outExtension({ format }) {
         return {
             js: format === 'cjs' ? '.cjs' : '.mjs'
