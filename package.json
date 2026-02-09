@@ -15,7 +15,8 @@
     "version:patch": "pnpm version patch",
     "version:minor": "pnpm version minor",
     "version:major": "pnpm version major",
-    "update": "pnpm up --latest"
+    "update": "pnpm up --latest",
+    "release": "git push --follow-tags"
   },
   "devDependencies": {
     "@types/node": "^25.2.2",
