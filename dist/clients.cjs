@@ -216,7 +216,9 @@ var JetstreamCore = class {
   starting = false;
   /* Stopping flag */
   stopping = false;
+  // ===========================================================
   // Public
+  // ===========================================================
   async start() {
     if (this.starting) {
       if (this.debug) {
@@ -227,7 +229,7 @@ var JetstreamCore = class {
     this.starting = true;
     try {
       if (this.nc || this.js || this.jsm) {
-        await this.stop(true);
+        await this.stop();
       }
       await this.initNatsConnection();
       await this.initJetstreamClient();
@@ -239,7 +241,7 @@ var JetstreamCore = class {
       this.starting = false;
     }
   }
-  async stop(reconnect = false) {
+  async stop() {
     if (this.stopping) {
       if (this.debug) {
         this.logger.info("Stop already in progress, skipping...");
@@ -262,18 +264,16 @@ var JetstreamCore = class {
         }
       }
       if (this.nc) {
-        if (reconnect) {
-          try {
-            await this.nc.drain();
-            if (this.debug) {
-              this.logger.info(`NATS connection drained.`);
-            }
-          } catch (error) {
-            this.logger.error(
-              "Error draining NATS connection:",
-              error.message
-            );
+        try {
+          await this.nc.drain();
+          if (this.debug) {
+            this.logger.info(`NATS connection drained.`);
           }
+        } catch (error) {
+          this.logger.error(
+            "Error draining NATS connection:",
+            error.message
+          );
         }
         try {
           await this.nc.close();
@@ -295,7 +295,9 @@ var JetstreamCore = class {
       this.stopping = false;
     }
   }
+  // ===========================================================
   // Private
+  // ===========================================================
   async initNatsConnection(attempt = 0) {
     if (this.nc) {
       if (this.debug) {
@@ -417,10 +419,10 @@ var JetstreamCore = class {
             break;
           // Client received a cluster update
           case "update":
-            if (s.added && s.added?.length > 0) {
+            if (s.added && s.added.length > 0) {
               this.logger.info(`cluster update - ${s.added} added`);
             }
-            if (s.deleted && s.deleted?.length > 0) {
+            if (s.deleted && s.deleted.length > 0) {
               this.logger.info(`cluster update - ${s.deleted} removed`);
             }
             break;

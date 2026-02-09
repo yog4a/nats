@@ -1,4 +1,4 @@
-import { NatsConnection, ConnectionOptions, WithRequired } from '@nats-io/transport-node';
+import { NatsConnection, NodeConnectionOptions, WithRequired } from '@nats-io/transport-node';
 import { JetStreamClient, JetStreamManager, StreamInfo, StreamConfig, StreamUpdateConfig, ConsumerInfo, ConsumerConfig, ConsumerUpdateConfig, Consumer, PushConsumer } from '@nats-io/jetstream';
 
 /**
@@ -104,9 +104,9 @@ declare class JetstreamCore {
      * @param connectionOptions - The connection options for the NATS connection
      * @param debug - Whether to enable debug mode
      */
-    constructor(connectionOptions: ConnectionOptions, debug?: boolean);
+    constructor(connectionOptions: NodeConnectionOptions, debug?: boolean);
     start(): Promise<void>;
-    stop(reconnect?: boolean): Promise<void>;
+    stop(): Promise<void>;
     private initNatsConnection;
     private initJetstreamManager;
     private initJetstreamClient;
@@ -132,7 +132,7 @@ declare function consumersModule(this: JetstreamClient): {
 };
 
 declare class JetstreamClient {
-    protected readonly connectionOptions: ConnectionOptions;
+    protected readonly connectionOptions: NodeConnectionOptions;
     protected readonly debug: boolean;
     protected readonly core: JetstreamCore;
     readonly streams: ReturnType<typeof streamsModule>;
@@ -142,7 +142,7 @@ declare class JetstreamClient {
      * @param connectionOptions - The connection options for the NATS connection
      * @param debug - Whether to enable debug mode
      */
-    constructor(connectionOptions: ConnectionOptions, debug?: boolean);
+    constructor(connectionOptions: NodeConnectionOptions, debug?: boolean);
     start(): Promise<void>;
     stop(): Promise<void>;
     isReady(): Promise<void>;
