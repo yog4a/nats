@@ -1,7 +1,7 @@
 {
   "name": "@yog4a/nats",
   "description": "Personal encapsulation module for nats",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
