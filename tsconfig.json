@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2022",
+    "target": "es2023",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "strict": true,
@@ -21,17 +21,19 @@
     "useDefineForClassFields": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "baseUrl": ".",
     "lib": [
       "ES2023"
-    ]
+    ],
+    "paths": {
+      "@src/*": ["./src/*"],
+    }
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "tests"
   ],
   "include": [
-    "src/**/*",
-    "tests/**/*"
+    "src"
   ]
 }

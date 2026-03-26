@@ -2,7 +2,7 @@ import type { API } from '../types.js';
 import type { Core } from "src/core/core.class";
 import { headers, type MsgHdrs } from '@nats-io/nats-core';
 import { Logger } from '@yogaajs/classes';
-import { pack, unpack } from 'src/utils/msgpack.utils';
+import { pack, unpack } from '@src/utils/msgpack.utils';
 
 // Types
 // ===========================================================

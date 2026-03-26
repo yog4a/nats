@@ -1,5 +1,5 @@
-import type { Consumer, ConsumerInfo, ConsumerConfig, ConsumerUpdateConfig, PushConsumer } from 'src/libs/nats-jetstream.js';
-import type { Logger } from 'src/classes/index.js';
+import type { Consumer, ConsumerInfo, ConsumerConfig, ConsumerUpdateConfig, PushConsumer } from '@src/libs/nats-jetstream.js';
+import type { Logger } from '@src/classes/index.js';
 import type { JetstreamClient } from "../client.jetstream.js";
 
 // Class

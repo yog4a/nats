@@ -1,8 +1,8 @@
 import type { Subscription, MsgHdrs } from '@nats-io/nats-core';
 import type { PubAck } from '@nats-io/jetstream';
 import type { Client } from "src/core/client.class";
-import { withExpiration } from 'src/utils/timeout.utils';
-import { decompress } from 'src/utils/snappy.utils';
+import { withExpiration } from '@src/utils/timeout.utils';
+import { decompress } from '@src/utils/snappy.utils';
 
 import { streamConfig, type Config } from '../config/stream.config.js';
 import { Common, type StreamConfig, type Request, type Response } from '../classes/common.class';

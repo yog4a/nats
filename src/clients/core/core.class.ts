@@ -1,6 +1,6 @@
-import type { NodeConnectionOptions, NatsConnection } from 'src/libs/nats-transport.js';
-import { connect } from 'src/libs/nats-transport.js';
-import { Logger, Gate } from 'src/classes/index.js';
+import type { NodeConnectionOptions, NatsConnection } from '@src/libs/nats-transport.js';
+import { connect } from '@src/libs/nats-transport.js';
+import { Logger, Gate } from '@src/classes/index.js';
 
 // Class
 // ===========================================================

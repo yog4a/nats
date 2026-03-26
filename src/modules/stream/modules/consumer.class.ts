@@ -1,9 +1,9 @@
-import type { JsMsg, ConsumerMessages } from 'src/libs/nats-jetstream.js';
+import type { JsMsg, ConsumerMessages } from '@src/libs/nats-jetstream.js';
 import type { JetstreamClient } from "src/clients/client.jetstream.js";
 import type { Payload, Headers } from '../types.js';
 import { setConsumerConfig, type ConsumerConfig } from '../config/consumer.config.js';
 import { Common } from '../classes/common.class.js';
-import { Mutex } from 'src/classes/mutex.class.js';
+import { Mutex } from '@src/classes/mutex.class.js';
 
 // Types
 // ===========================================================

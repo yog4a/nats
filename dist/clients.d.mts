@@ -1,7 +1,8 @@
-import { a as ConsumerUpdateConfig, c as JetStreamClient$1, d as PushConsumer, g as __name, i as ConsumerInfo, l as JetStreamManager$1, n as Consumer, r as ConsumerConfig, t as Logger } from "./logger.class-fon2pdJJ.cjs";
+import { t as __name } from "./chunk-UvegZiLi.mjs";
+import { a as ConsumerUpdateConfig, c as JetStreamClient$1, d as PushConsumer, i as ConsumerInfo, l as JetStreamManager$1, n as Consumer, r as ConsumerConfig, t as Logger } from "./logger.class-DLyJdQLR.mjs";
+import { NatsConnection as NatsConnection$1, NodeConnectionOptions as NodeConnectionOptions$1 } from "@nats-io/transport-node";
 import { NatsConnection, NodeConnectionOptions, WithRequired } from "src/libs/nats-transport.js";
 import { JetStreamClient, JetStreamManager, StreamConfig, StreamInfo, StreamUpdateConfig } from "src/libs/nats-jetstream.js";
-import { NatsConnection as NatsConnection$1, NodeConnectionOptions as NodeConnectionOptions$1 } from "@nats-io/transport-node";
 
 //#region src/classes/gate.class.d.ts
 /**
@@ -130,4 +131,4 @@ declare class JetstreamClient {
 }
 //#endregion
 export { JetstreamClient };
-//# sourceMappingURL=clients.d.cts.map
+//# sourceMappingURL=clients.d.mts.map

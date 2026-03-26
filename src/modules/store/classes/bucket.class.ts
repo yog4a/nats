@@ -3,8 +3,8 @@ import type { Store } from './store.class';
 import { Kvm, KV } from '@nats-io/kv';
 import { bucketConfig } from '../config';
 
-import Logger from 'src/classes/logger.class';
-import Manager from 'src/classes/manager.class';
+import Logger from '@src/classes/logger.class';
+import Manager from '@src/classes/manager.class';
 
 // Class
 // ===========================================================

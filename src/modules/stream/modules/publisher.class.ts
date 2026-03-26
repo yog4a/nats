@@ -1,5 +1,5 @@
-import type { MsgHdrs } from 'src/libs/nats-core.js';
-import type { PubAck } from 'src/libs/nats-jetstream.js';
+import type { MsgHdrs } from '@src/libs/nats-core.js';
+import type { PubAck } from '@src/libs/nats-jetstream.js';
 import type { JetstreamClient } from "src/clients/client.jetstream.js";
 import type { Payload } from '../types.js';
 import { setStreamConfig, type StreamConfig } from '../config/stream.config.js';

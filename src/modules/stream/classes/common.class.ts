@@ -1,10 +1,10 @@
-import type { JetStreamApiError, Consumer, StreamConfig, ConsumerConfig, JetStreamClient, StoredMsg } from 'src/libs/nats-jetstream.js';
+import type { JetStreamApiError, Consumer, StreamConfig, ConsumerConfig, JetStreamClient, StoredMsg } from '@src/libs/nats-jetstream.js';
 import type { JetstreamClient } from "src/clients.js";
 import type { Payload, Headers } from '../types.js';
-import { headers, type MsgHdrs } from 'src/libs/nats-core.js';
-import { Logger, Gate } from 'src/classes/index.js';
-import { pack, unpack } from 'src/utils/msgpack.utils.js';
-import { compress, decompress } from 'src/utils/snappy.utils.js';
+import { headers, type MsgHdrs } from '@src/libs/nats-core.js';
+import { Logger, Gate } from '@src/classes/index.js';
+import { pack, unpack } from '@src/utils/msgpack.utils.js';
+import { compress, decompress } from '@src/utils/snappy.utils.js';
 
 // Types
 // ===========================================================

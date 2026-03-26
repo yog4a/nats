@@ -2,7 +2,7 @@ import type { Msg, MsgHdrs, RequestError } from '@nats-io/nats-core';
 import type { Core } from "src/core/core.class";
 import type { API } from '../types.js';
 import { Common } from '../classes/common.class';
-import { formatTime } from 'src/utils/time.utils';
+import { formatTime } from '@src/utils/time.utils';
 
 // Types
 // ===========================================================

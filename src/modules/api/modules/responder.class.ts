@@ -2,8 +2,8 @@ import type { Msg, Subscription } from '@nats-io/nats-core';
 import type { Core } from "src/core/core.class";
 import type { API } from '../types.js';
 import { Common } from '../classes/common.class';
-import { Mutex } from 'src/classes/mutex.class';
-import { formatTime } from 'src/utils/time.utils';
+import { Mutex } from '@src/classes/mutex.class';
+import { formatTime } from '@src/utils/time.utils';
 
 // Types
 // ===========================================================

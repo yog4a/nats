@@ -1,5 +1,5 @@
-import type { StorageType, RetentionPolicy, DiscardPolicy } from 'src/libs/nats-jetstream.js';
-import type { StreamConfig as JetstreamStreamConfig } from 'src/libs/nats-jetstream.js';
+import type { StorageType, RetentionPolicy, DiscardPolicy } from '@src/libs/nats-jetstream.js';
+import type { StreamConfig as JetstreamStreamConfig } from '@src/libs/nats-jetstream.js';
 
 // Types
 // ===========================================================

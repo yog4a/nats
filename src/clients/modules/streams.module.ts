@@ -1,6 +1,6 @@
 import type { StreamConfig, StreamInfo, StreamUpdateConfig } from "src/libs/nats-jetstream.js";
 import type { WithRequired } from "src/libs/nats-transport.js";
-import type { Logger } from 'src/classes/index.js';
+import type { Logger } from '@src/classes/index.js';
 import type { JetstreamClient } from "../client.jetstream.js";
 
 // Class

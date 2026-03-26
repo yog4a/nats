@@ -1,5 +1,5 @@
-import type { ConsumerConfig as JetstreamConsumerConfig } from 'src/libs/nats-jetstream.js';
-import { AckPolicy, DeliverPolicy, ReplayPolicy } from 'src/libs/nats-jetstream.js';
+import type { ConsumerConfig as JetstreamConsumerConfig } from '@src/libs/nats-jetstream.js';
+import { AckPolicy, DeliverPolicy, ReplayPolicy } from '@src/libs/nats-jetstream.js';
 
 // Types
 // ===========================================================

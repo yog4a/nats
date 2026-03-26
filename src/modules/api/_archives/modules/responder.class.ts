@@ -1,6 +1,6 @@
 import type { JsMsg, ConsumerMessages, Consumer } from '@nats-io/jetstream';
 import type { Client } from "src/core/client.class";
-import { compress } from 'src/utils/snappy.utils';
+import { compress } from '@src/utils/snappy.utils';
 import { consumerConfig } from '../config';
 import ApiBase, { type API } from '../classes/common.class';
 
