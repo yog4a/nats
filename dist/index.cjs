@@ -1,2 +1,1 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`}),require(`./chunk-Bcf3EXhi.cjs`);const e=require(`./clients-CrrBaZVg.cjs`),t=require(`./modules-DmoFzCBe.cjs`),toBytes=e=>e*1024*1024,toNanoSeconds=e=>e*1e9;exports.JetstreamClient=e.t,exports.JetstreamCore=e.n,exports.StreamConsumer=t.t,exports.StreamPublisher=t.n,exports.toBytes=toBytes,exports.toNanoSeconds=toNanoSeconds;
-//# sourceMappingURL=index.cjs.map
+Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`./clients-Cy-TQhMx.cjs`),t=require(`./modules-D6AEvNkr.cjs`),n=require(`./utils.cjs`);exports.JetstreamClient=e.t,exports.JetstreamCore=e.n,exports.StreamConsumer=t.t,exports.StreamPublisher=t.n,exports.toBytes=n.toBytes,exports.toNanoSeconds=n.toNanoSeconds;

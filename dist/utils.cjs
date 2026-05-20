@@ -1,0 +1,2 @@
+Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`}),require(`./chunk-Bcf3EXhi.cjs`);const toBytes=e=>e*1024*1024,toNanoSeconds=e=>e*1e9;exports.toBytes=toBytes,exports.toNanoSeconds=toNanoSeconds;
+//# sourceMappingURL=utils.cjs.map

@@ -1,0 +1,1 @@
+import{headers as e}from"@nats-io/nats-core";export{e as t};

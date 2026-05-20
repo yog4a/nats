@@ -1,8 +1,6 @@
-import { NatsConnection, NodeConnectionOptions, WithRequired } from "@nats-io/transport-node";
-import { ConsumeOptions, Consumer, ConsumerConfig, ConsumerInfo, ConsumerMessages, ConsumerUpdateConfig, DeliveryInfo, JetStreamClient, JetStreamManager, JsMsg, PubAck, PushConsumer, StoredMsg, StreamConfig, StreamInfo, StreamUpdateConfig } from "@nats-io/jetstream";
+import { t as __name } from "./chunk-UvegZiLi.mjs";
+import { A as WithRequired, C as StreamInfo, D as NatsConnection, O as NodeConnectionOptions, S as StreamConfig, a as ConsumerInfo, f as JetStreamClient, g as PushConsumer, i as ConsumerConfig, p as JetStreamManager, r as Consumer, s as ConsumerUpdateConfig, w as StreamUpdateConfig } from "./nats-jetstream-Do5nMsva.mjs";
 
-//#region \0rolldown/runtime.js
-//#endregion
 //#region src/clients/jetstream/jetstream.types.d.ts
 type JetstreamConfig = NodeConnectionOptions & {
   servers: string | string[];
@@ -127,5 +125,5 @@ declare class JetstreamClient extends JetstreamCore {
   getJetstreamManager(): Promise<JetStreamManager>;
 }
 //#endregion
-export { ConsumeOptions as a, DeliveryInfo as c, StoredMsg as d, StreamConfig as f, JetstreamOptions as i, JsMsg as l, JetstreamCore as n, ConsumerConfig as o, __name as p, JetstreamConfig as r, ConsumerMessages as s, JetstreamClient as t, PubAck as u };
-//# sourceMappingURL=clients-CtfJ1wcn.d.cts.map
+export { JetstreamOptions as i, JetstreamCore as n, JetstreamConfig as r, JetstreamClient as t };
+//# sourceMappingURL=clients-DffC8C-_.d.mts.map

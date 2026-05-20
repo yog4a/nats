@@ -5,6 +5,8 @@ export default defineConfig({
         'src/index.ts',
         'src/clients.ts',
         'src/modules.ts',
+        'src/libs.ts',
+        'src/utils.ts',
     ],
     format: ['cjs', 'esm'],             // Generate both CommonJS and ES modules for compatibility
     target: 'es2022',                   // Target modern JavaScript (Node 18+ support)

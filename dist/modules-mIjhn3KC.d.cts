@@ -1,6 +1,7 @@
-import { t as __name } from "./chunk-UvegZiLi.mjs";
-import { a as ConsumeOptions, c as DeliveryInfo, d as StoredMsg, f as StreamConfig, l as JsMsg, o as ConsumerConfig$1, s as ConsumerMessages, t as JetstreamClient, u as PubAck } from "./clients-BB7UBhWI.mjs";
-import { MsgHdrs } from "@nats-io/nats-core";
+import { t as __name } from "./chunk-cy2TeOE5.cjs";
+import { S as StreamConfig, h as PubAck, i as ConsumerConfig$1, l as DeliveryInfo, m as JsMsg, n as ConsumeOptions, o as ConsumerMessages, x as StoredMsg } from "./nats-jetstream-BL4kUK0G.cjs";
+import { t as JetstreamClient } from "./clients-CsEIqCln.cjs";
+import { t as MsgHdrs } from "./libs-B5j4qCBb.cjs";
 
 //#region src/modules/stream/modules/publisher.types.d.ts
 /**
@@ -292,4 +293,4 @@ declare class StreamConsumer extends ConsumerSetup {
 }
 //#endregion
 export { ConsumerOptions as a, PublisherConfig as c, ConsumerConfig as i, PublisherOptions as l, StreamPublisher as n, Payload as o, ConsumerCallback as r, Headers as s, StreamConsumer as t };
-//# sourceMappingURL=modules-DoOMsYHR.d.mts.map
+//# sourceMappingURL=modules-mIjhn3KC.d.cts.map

@@ -1,2 +1,1 @@
-import"./chunk-UvegZiLi.mjs";import{n as e,t}from"./clients-9_FUraUF.mjs";import{n,t as r}from"./modules-DcK5EAvR.mjs";const toBytes=e=>e*1024*1024,toNanoSeconds=e=>e*1e9;export{t as JetstreamClient,e as JetstreamCore,r as StreamConsumer,n as StreamPublisher,toBytes,toNanoSeconds};
-//# sourceMappingURL=index.mjs.map
+import{n as e,t}from"./clients-CfAzArG0.mjs";import{n,t as r}from"./modules-slOwiJlp.mjs";import{toBytes as i,toNanoSeconds as a}from"./utils.mjs";export{t as JetstreamClient,e as JetstreamCore,r as StreamConsumer,n as StreamPublisher,i as toBytes,a as toNanoSeconds};
