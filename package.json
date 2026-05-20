@@ -1,7 +1,7 @@
 {
   "name": "@yog4a/nats",
   "description": "Personal encapsulation module for nats",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -19,17 +19,17 @@
     "tags": "git push --follow-tags"
   },
   "devDependencies": {
-    "@types/node": "^25.5.0",
-    "tsdown": "^0.21.4",
+    "@types/node": "^25.7.0",
+    "tsdown": "^0.22.0",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "dependencies": {
     "@msgpack/msgpack": "^3.1.3",
-    "@nats-io/jetstream": "^3.3.1",
-    "@nats-io/kv": "^3.3.1",
-    "@nats-io/nats-core": "^3.3.1",
-    "@nats-io/transport-node": "^3.3.1",
+    "@nats-io/jetstream": "^3.4.0",
+    "@nats-io/kv": "^3.4.0",
+    "@nats-io/nats-core": "^3.4.0",
+    "@nats-io/transport-node": "^3.4.0",
     "snappy": "^7.3.3"
   },
   "files": [
@@ -48,11 +48,23 @@
       "require": "./dist/clients.cjs",
       "default": "./dist/clients.mjs"
     },
+    "./libs": {
+      "types": "./dist/libs.d.ts",
+      "import": "./dist/libs.mjs",
+      "require": "./dist/libs.cjs",
+      "default": "./dist/libs.mjs"
+    },
     "./modules": {
       "types": "./dist/modules.d.ts",
       "import": "./dist/modules.mjs",
       "require": "./dist/modules.cjs",
       "default": "./dist/modules.mjs"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "import": "./dist/utils.mjs",
+      "require": "./dist/utils.cjs",
+      "default": "./dist/utils.mjs"
     }
   }
 }

@@ -1,4 +1,4 @@
 export { 
-    type MsgHdrs,
     headers,
+    type MsgHdrs,
 } from '@nats-io/nats-core';

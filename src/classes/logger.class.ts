@@ -58,9 +58,4 @@ export class Logger {
     public throw(message: string): void {
         throw new Error(`${this.prefix} ${message}`);
     }
-
-    /** Creates a new logger with a suffix */
-    public child(prefix: string): Logger {
-        return new Logger(`${this.prefix}${prefix}`);
-    }
 }

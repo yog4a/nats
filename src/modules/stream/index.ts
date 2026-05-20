@@ -1,12 +1,21 @@
-// Classes
-// ===========================================================
-
-export { StreamPublisher, type PublisherOptions } from './modules/publisher.class.js';
-export { StreamConsumer, type ConsumerOptions, type ConsumerCallback } from './modules/consumer.class.js';
-export type { Headers as StreamHeaders, Payload as StreamPayload } from './types.js';
-
-// Configs
-// ===========================================================
-
-export type { StreamConfig } from './config/stream.config.js';
-export type { ConsumerConfig } from './config/consumer.config.js';
+export {
+    StreamPublisher,
+} from './modules/publisher.class.js';
+export {
+    type PublisherConfig,
+    type PublisherOptions,
+} from './modules/publisher.types.js';
+export {
+    StreamConsumer,
+} from './modules/consumer.class.js';
+export {
+    type ConsumerConfig,
+    type ConsumerOptions,
+    type ConsumerCallback,
+} from './modules/consumer.types.js';
+export {
+    type Headers,
+} from './utils/header.utils.js';
+export {
+    type Payload,
+} from './utils/payload.utils.js';

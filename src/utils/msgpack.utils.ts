@@ -1,41 +1,54 @@
 import { encode, decode } from '@msgpack/msgpack';
 
+// ===========================================================
+// Utilities
+// ===========================================================
+
+function formatKb(bytes: number): string {
+    return `${(bytes / 1024).toFixed(2)} KB`;
+}
+
+function formatMs(ms: number): string {
+    return `${ms.toFixed(2)}ms`;
+}
+
+// ===========================================================
 // Functions
 // ===========================================================
 
 export function pack(input: unknown, debug: boolean = false): Uint8Array {
-    const start = performance.now();
+    const start = debug ? performance.now() : 0;
     const encoded = encode(input);
 
     if (debug) {
-        try {
-            const duration = performance.now() - start;
-            const jsonSize = Buffer.byteLength(JSON.stringify(input), "utf8");
-            const packedSize = encoded.byteLength;
-            const compression = ((jsonSize - packedSize) / jsonSize) * 100;
-            const compressionPercent = Math.floor(compression);
-            const originalSize = (jsonSize / 1024).toFixed(2);
-            const compressedSize = (packedSize / 1024).toFixed(2);
-        
-            console.log(
-                `[msgpack] reduced by ${compressionPercent}% (${originalSize} KB → ${compressedSize} KB) in ${duration}ms`
-            );
-        } catch (error: unknown) {
-            console.error('[msgpack] failed to log packing details:', error);
-        }
+        const duration = performance.now() - start;
+        const packedSize = encoded.byteLength;
+
+        const jsonString = JSON.stringify(input);
+        const jsonSize = Buffer.byteLength(jsonString, "utf8");
+        const reduction = ((jsonSize - packedSize) / jsonSize) * 100;
+        const reductionPercent = Math.floor(reduction);
+
+        console.log(
+            `[msgpack] packed in ${formatMs(duration)}: ${formatKb(jsonSize)} → ${formatKb(packedSize)} (${reductionPercent}%)`
+        );
     }
 
     return encoded;
 }
 
 export function unpack(input: Uint8Array, debug: boolean = false): unknown {
-    const start = performance.now();
+    const start = debug ? performance.now() : 0;
     const decoded = decode(input);
 
     if (debug) {
         const duration = performance.now() - start;
-        console.log(`[msgpack] unpacked in ${duration}ms`);
+        const packedSize = input.byteLength;
+
+        console.log(
+            `[msgpack] unpacked in ${formatMs(duration)}: ${formatKb(packedSize)}`
+        );
     }
-    
+
     return decoded;
 }

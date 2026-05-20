@@ -1,0 +1,1 @@
+var e=Object.defineProperty,__name=(t,n)=>e(t,`name`,{value:n,configurable:!0});Object.defineProperty(exports,`t`,{enumerable:!0,get:function(){return __name}});

@@ -1,1 +1,2 @@
-import*as e from"@nats-io/jetstream";import*as t from"@nats-io/kv";import*as n from"@nats-io/nats-core";import*as r from"@nats-io/transport-node";import*as i from"@msgpack/msgpack";import*as a from"snappy";export{i as Msgpack,n as NatsCore,e as NatsJetstream,t as NatsKv,r as NatsTransportNode,a as Snappy};
+import"./chunk-UvegZiLi.mjs";import{n as e,t}from"./clients-9_FUraUF.mjs";import{n,t as r}from"./modules-DcK5EAvR.mjs";const toBytes=e=>e*1024*1024,toNanoSeconds=e=>e*1e9;export{t as JetstreamClient,e as JetstreamCore,r as StreamConsumer,n as StreamPublisher,toBytes,toNanoSeconds};
+//# sourceMappingURL=index.mjs.map

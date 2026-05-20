@@ -1,1 +1,1 @@
-export * from "./clients/client.jetstream.js";
+export * from "./clients/index.js";

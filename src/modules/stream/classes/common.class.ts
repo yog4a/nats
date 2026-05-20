@@ -1,180 +1,86 @@
-import type { JetStreamApiError, Consumer, StreamConfig, ConsumerConfig, JetStreamClient, StoredMsg } from '@src/libs/nats-jetstream.js';
-import type { JetstreamClient } from "src/clients.js";
-import type { Payload, Headers } from '../types.js';
-import { headers, type MsgHdrs } from '@src/libs/nats-core.js';
-import { Logger, Gate } from '@src/classes/index.js';
-import { pack, unpack } from '@src/utils/msgpack.utils.js';
-import { compress, decompress } from '@src/utils/snappy.utils.js';
+import type { StoredMsg, JsMsg, DeliveryInfo } from '../../../libs/nats-jetstream.js';
+import type { PublisherOptions } from '../modules/publisher.types.js';
+import { getHeaders, type Headers } from '../utils/header.utils.js';
+import { decompressPayload, parsePayload, type Payload } from '../utils/payload.utils.js';
 
-// Types
 // ===========================================================
-
-type Options = {
-    /** Name of the NATS stream */
-    streamName: string,
-    /** Name of the NATS consumer */
-    consumerName?: string,
-    /** Flag to enable/disable debug logging */
-    debug: boolean;
-};
-
 // Class
 // ===========================================================
 
 export class Common {
-    /* Logger */
-    protected readonly logger: Logger;
-    /* Stream flag (stream is created) */
-    protected streamExists: boolean = false;
-    /* Consumer flag (consumer is created) */
-    protected consumerExists: boolean = false;
+    /** Flag to enable/disable debug mode */
+    protected readonly debug: boolean;
+
+    // ==============================
+    // Constructor
+    // ==============================
+
     /**
-     * @constructor
-     * @param {JetstreamClient} core - The NATS jetstream client instance
-     * @param {Options} options - The options for the common class
+     * Creates a new Common instance
+     * @param {PublisherOptions} options - Optional publisher options
      */
     constructor(
-        protected readonly core: JetstreamClient, 
-        protected readonly options: Options,
+        options: PublisherOptions,
     ) {
-        // Get the type
-        const type = options.consumerName ? 'consumer' : 'publisher';
-
-        // Verify the required options
-        if (!core) throw new Error('Core jetstream client is required!');
-        if (!options.streamName) throw new Error('Stream name is required!');
-        if (type === 'consumer' && !options.consumerName) throw new Error('Consumer name is required!');
-
-        // Setup logger
-        const name = options.consumerName ? `[${options.consumerName}]` : '';
-        this.logger = new Logger(`[nats][${type}][${options.streamName}]${name}`, options.debug);
+        this.debug = options.debug ?? false;
     }
 
-    // Setup
-
-    public async getStream(config: Partial<StreamConfig> & { name: string }): Promise<JetStreamClient> {
-        if (this.streamExists !== true) {
-            if (!config.name) {
-                throw new Error('Stream name is required!');
-            }
-            try {
-                // Wait for the client to be ready and ensure the stream exists
-                await this.core.streams.info(config.name);
-                this.streamExists = true;
-
-            } catch (error) {
-                // Not a stream not found error
-                if ((error as JetStreamApiError).name !== "StreamNotFoundError") {
-                    throw error;
-                }
-
-                // Wait for the client to be ready and create the stream
-                await this.core.streams.create(config);
-                this.streamExists = true;
-            }
-        }
-        // Wait for the client to be ready and return the jetstream client
-        const jetstreamClient = await this.core.getJetstreamClient();
-        return jetstreamClient;
-    }
-
-    public async getConsumer(streamName: string, config: Partial<ConsumerConfig> & { durable_name: string }): Promise<Consumer> {
-        if (this.consumerExists !== true) {
-            if (!streamName || !config.durable_name) {
-                throw new Error('Stream name and consumer name are required!');
-            }
-            try {
-                // Verify if the consumer exists
-                await this.core.consumers.info(streamName, config.durable_name);
-                this.consumerExists = true;
-
-            } catch (error) {
-                // Not a consumer not found error
-                if ((error as JetStreamApiError).name !== "ConsumerNotFoundError") {
-                    throw error;
-                }
-
-                // Create the consumer
-                await this.core.consumers.create(streamName, config.durable_name, config);
-                this.consumerExists = true;
-            }
-        }
-        // Wait for the client to be ready and return the consumer
-        const consumer = await this.core.consumers.getPullConsumer(streamName, config.durable_name);
-        return consumer;
-    }
-
+    // ==============================
     // Utilities
+    // ==============================
 
-    public readMessage(msg: StoredMsg): { subject: string, payload: Payload } {
-        // Decode subject
-        const subject = this.getSubject(msg.subject);
+    /**
+     * Reads a stored message from a NATS stream
+     * @description This method will read a stored message from a NATS stream and return the subject and payload
+     * @param {StoredMsg} msg - The message to read
+     * @returns {{ subject: string, headers: Headers, payload: Payload }} - The subject, headers and payload of the message
+     */
+    public readStoredMessage(msg: StoredMsg): { subject: string, headers: Headers, payload: Payload } {
+        const subject = msg.subject;
+        const headers = getHeaders(msg.header);
+        const payload = this.extractPayload(msg.data, headers);
 
-        // Decode headers
-        const compressed = msg.header.get('compressed');
+        return { subject, headers, payload };
+    }
 
-        if (compressed === 'true') {
-            const dPayload = this.decompressPayload(msg.data);
-            const payload = this.parsePayload(dPayload);
-            return { subject, payload };
+    /**
+     * Reads a message from a NATS stream
+     * @description This method will read a message from a NATS stream and return the subject, headers, payload and info
+     * @param {JsMsg} msg - The message to read
+     * @returns {{ subject: string, headers: Headers, payload: Payload, info: DeliveryInfo }} - The subject, headers, payload and info of the message
+     */
+    public readStreamMessage(msg: JsMsg): { subject: string, headers: Headers, payload: Payload, info: DeliveryInfo } {
+        if (!msg.headers) {
+            throw new Error('Message headers are required!');
+        }
+
+        const info = msg.info;
+        const subject = msg.subject;
+        const headers = getHeaders(msg.headers);
+        const payload = this.extractPayload(msg.data, headers);
+
+        return { subject, headers, payload, info };
+    }
+
+    // ==============================
+    // Utilities
+    // ==============================
+
+    /**
+     * Reads a message from a NATS stream
+     * @description This method will read a message from a NATS stream and return the subject and payload
+     * @param {Uint8Array<ArrayBufferLike>} data - The data to read
+     * @param {Headers} headers - The headers to read
+     * @returns {Payload} - The payload of the message
+     */
+    private extractPayload(data: Uint8Array<ArrayBufferLike>, headers: Headers): Payload {
+        if (headers.contentEncoding === 'snappy') {
+            const dPayload = decompressPayload(data, this.debug);
+            const payload = parsePayload(dPayload, this.debug);
+            return payload;
         } else {
-            const payload = this.parsePayload(msg.data);
-            return { subject, payload };   
-        }
-    }
-
-    public setSubject(subject: string): string {
-        return `${this.options.streamName}.${subject}`;
-    }
-
-    public getSubject(subject: string): string {
-        return subject.replace(`${this.options.streamName}.`, '');
-    }
-
-    public getHeader(): MsgHdrs {
-        return headers();
-    }
-
-    public createPayload(payload: Payload): Uint8Array {
-        try {
-            const packed = pack(payload, this.options.debug);
-            return packed;
-        } catch (error: unknown) {
-            this.logger.error('failed to pack only the payload:', error);
-            throw error;
-        }
-    }
-
-    public parsePayload(data: Uint8Array): Payload {
-        try {
-            const parsed = unpack(data) as Payload;
-            return {
-                data: parsed.data,
-                metadata: parsed.metadata,
-            };
-        } catch (error: unknown) {
-            this.logger.error('failed to unpack only the data:', error);
-            throw error;
-        }
-    }
-
-    public compressPayload(packed: Uint8Array): Uint8Array {
-        try {
-            const compressed = compress(packed, this.options.debug);
-            return compressed;
-        } catch (error: unknown) {
-            this.logger.error('failed to compress the payload:', error);
-            throw error;
-        }
-    }
-
-    public decompressPayload(data: Uint8Array): Uint8Array {
-        try {
-            const decompressed = decompress(data, this.options.debug);   
-            return decompressed;
-        } catch (error: unknown) {
-            this.logger.error('failed to decompress the payload:', error);
-            throw error;
+            const payload = parsePayload(data, this.debug);
+            return payload;
         }
     }
 }
