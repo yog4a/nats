@@ -1,2 +1,2 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`}),require(`./chunk-Bcf3EXhi.cjs`);const toBytes=e=>e*1024*1024,toNanoSeconds=e=>e*1e9;exports.toBytes=toBytes,exports.toNanoSeconds=toNanoSeconds;
+Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`}),require(`./chunk-Bcf3EXhi.cjs`);const fromSecondsToNanoSeconds=e=>e*1e9,fromGigaToBytes=e=>e*1024**3,fromMegaToBytes=e=>e*1024**2;exports.fromGigaToBytes=fromGigaToBytes,exports.fromMegaToBytes=fromMegaToBytes,exports.fromSecondsToNanoSeconds=fromSecondsToNanoSeconds;
 //# sourceMappingURL=utils.cjs.map

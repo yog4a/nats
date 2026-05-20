@@ -1,4 +1,4 @@
 import { i as JetstreamOptions, n as JetstreamCore, r as JetstreamConfig, t as JetstreamClient } from "./clients-CsEIqCln.cjs";
-import { a as ConsumerOptions, c as PublisherConfig, i as ConsumerConfig, l as PublisherOptions, n as StreamPublisher, o as Payload, r as ConsumerCallback, s as Headers, t as StreamConsumer } from "./modules-mIjhn3KC.cjs";
-import { toBytes, toNanoSeconds } from "./utils.cjs";
-export { ConsumerCallback, ConsumerConfig, ConsumerOptions, Headers, JetstreamClient, JetstreamConfig, JetstreamCore, JetstreamOptions, Payload, PublisherConfig, PublisherOptions, StreamConsumer, StreamPublisher, toBytes, toNanoSeconds };
+import { a as ConsumerOptions, c as PublisherConfig, i as ConsumerConfig, l as PublisherOptions, n as StreamPublisher, o as Payload, r as ConsumerCallback, s as Headers, t as StreamConsumer } from "./modules-DoJdtWuT.cjs";
+import { fromGigaToBytes, fromMegaToBytes, fromSecondsToNanoSeconds } from "./utils.cjs";
+export { ConsumerCallback, ConsumerConfig, ConsumerOptions, Headers, JetstreamClient, JetstreamConfig, JetstreamCore, JetstreamOptions, Payload, PublisherConfig, PublisherOptions, StreamConsumer, StreamPublisher, fromGigaToBytes, fromMegaToBytes, fromSecondsToNanoSeconds };

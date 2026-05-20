@@ -1,7 +1,7 @@
-import { t as __name } from "./chunk-cy2TeOE5.cjs";
-import { S as StreamConfig, h as PubAck, i as ConsumerConfig$1, l as DeliveryInfo, m as JsMsg, n as ConsumeOptions, o as ConsumerMessages, x as StoredMsg } from "./nats-jetstream-BL4kUK0G.cjs";
-import { t as JetstreamClient } from "./clients-CsEIqCln.cjs";
-import { t as MsgHdrs } from "./libs-B5j4qCBb.cjs";
+import { t as __name } from "./chunk-UvegZiLi.mjs";
+import { S as StreamConfig, h as PubAck, i as ConsumerConfig$1, l as DeliveryInfo, m as JsMsg, n as ConsumeOptions, o as ConsumerMessages, x as StoredMsg } from "./nats-jetstream-Do5nMsva.mjs";
+import { t as JetstreamClient } from "./clients-DffC8C-_.mjs";
+import { t as MsgHdrs } from "./libs-7Cj_ApGe.mjs";
 
 //#region src/modules/stream/modules/publisher.types.d.ts
 /**
@@ -29,7 +29,7 @@ type Headers = {
 };
 //#endregion
 //#region src/modules/stream/utils/payload.utils.d.ts
-type Data = string | number | boolean | null | Array<Data> | {
+type Data = string | number | boolean | null | undefined | Array<Data> | {
   [key: string]: Data;
 };
 type Metadata = string | number | boolean | {
@@ -293,4 +293,4 @@ declare class StreamConsumer extends ConsumerSetup {
 }
 //#endregion
 export { ConsumerOptions as a, PublisherConfig as c, ConsumerConfig as i, PublisherOptions as l, StreamPublisher as n, Payload as o, ConsumerCallback as r, Headers as s, StreamConsumer as t };
-//# sourceMappingURL=modules-mIjhn3KC.d.cts.map
+//# sourceMappingURL=modules-CXdUsXbW.d.mts.map

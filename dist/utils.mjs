@@ -1,2 +1,2 @@
-import"./chunk-UvegZiLi.mjs";const toBytes=e=>e*1024*1024,toNanoSeconds=e=>e*1e9;export{toBytes,toNanoSeconds};
+import"./chunk-UvegZiLi.mjs";const fromSecondsToNanoSeconds=e=>e*1e9,fromGigaToBytes=e=>e*1024**3,fromMegaToBytes=e=>e*1024**2;export{fromGigaToBytes,fromMegaToBytes,fromSecondsToNanoSeconds};
 //# sourceMappingURL=utils.mjs.map

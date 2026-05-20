@@ -10,6 +10,7 @@ type Data =
     | number
     | boolean
     | null
+    | undefined
     | Array<Data>
     | { [key: string]: Data };
 
