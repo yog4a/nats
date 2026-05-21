@@ -53,7 +53,8 @@ export function packPayload(payload: Payload, debugLog?: (message: string) => vo
 export function parsePayload(data: Uint8Array, debugLog?: (message: string) => void): Payload {
     const start = performance.now();
     try {
-        const payload = JSON.parse(data.toString()) as Payload;
+        const text = Buffer.from(data).toString('utf8');
+        const payload = JSON.parse(text) as Payload;
 
         if (debugLog) {
             const duration = performance.now() - start;
