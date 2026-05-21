@@ -64,8 +64,12 @@ export class StreamPublisher extends PublisherSetup {
         this.incrementActivePublishes();
         try {
             // Payload (msgpack)
-            //const packedPayload = packPayload(payload, { debugLog: this.options.onLog });
+            const packedPayload = packPayload(payload, { debugLog: this.options.onLog });
+
+            const start = performance.now();
             const rawPayload = Buffer.from(JSON.stringify(payload));
+            const duration = performance.now() - start;
+            console.log(`(json) stringified in ${duration.toFixed(2)}ms`);
 
             // Compression
             //const sizeInBytes = packedPayload.byteLength;

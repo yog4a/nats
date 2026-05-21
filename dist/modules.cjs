@@ -1,1 +1,1 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`./modules-DIKD_FXb.cjs`);exports.StreamConsumer=e.t,exports.StreamPublisher=e.n;
+Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`./modules-Co8KXIQ8.cjs`);exports.StreamConsumer=e.t,exports.StreamPublisher=e.n;
