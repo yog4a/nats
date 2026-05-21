@@ -35,8 +35,8 @@ export type Payload = {
 
 export function packPayload(payload: Payload, options: MsgpackOptions = {}): Uint8Array {
     try {
-        const packed = pack(payload, options);
-        return packed;
+        //return pack(payload, options);
+        return Buffer.from(JSON.stringify(payload));
     } catch (error: unknown) {
         const err = error instanceof Error ? error.message : String(error);
         throw new Error(`(msgpack) failed to pack the payload: ${err}`);
@@ -45,11 +45,8 @@ export function packPayload(payload: Payload, options: MsgpackOptions = {}): Uin
 
 export function parsePayload(data: Uint8Array, options: MsgpackOptions = {}): Payload {
     try {
-        const parsed = unpack(data, options) as Payload;
-        return {
-            data: parsed.data,
-            metadata: parsed.metadata,
-        };
+        //return unpack(data, options) as Payload;
+        return JSON.parse(data.toString()) as Payload;
     } catch (error: unknown) {
         const err = error instanceof Error ? error.message : String(error);
         throw new Error(`(msgpack) failed to parse the payload: ${err}`);
@@ -58,8 +55,7 @@ export function parsePayload(data: Uint8Array, options: MsgpackOptions = {}): Pa
 
 export function compressPayload(packed: Uint8Array, options: SnappyOptions = {}): Uint8Array {
     try {
-        const compressed = compress(packed, options);
-        return compressed;
+        return compress(packed, options);
     } catch (error: unknown) {
         const err = error instanceof Error ? error.message : String(error);
         throw new Error(`(snappy) failed to compress the payload: ${err}`);
@@ -68,8 +64,7 @@ export function compressPayload(packed: Uint8Array, options: SnappyOptions = {})
 
 export function decompressPayload(data: Uint8Array, options: SnappyOptions = {}): Uint8Array {
     try {
-        const decompressed = decompress(data, options);
-        return decompressed;
+        return decompress(data, options);
     } catch (error: unknown) {
         const err = error instanceof Error ? error.message : String(error);
         throw new Error(`(snappy) failed to decompress the payload: ${err}`);
