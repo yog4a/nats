@@ -3,25 +3,23 @@
   "description": "Personal encapsulation module for nats",
   "version": "2.0.3",
   "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsdown",
-    "build:patch": "npm version patch && npm run build",
-    "build:minor": "npm version minor && npm run build",
-    "build:major": "npm version major && npm run build",
+    "test": "node --import tsx --test tests/*.test.ts",
     "version:patch": "npm version patch",
     "version:minor": "npm version minor",
     "version:major": "npm version major",
-    "update:check": "npx npm-check-updates",
-    "update:install": "npx npm-check-updates -u && npm install",
-    "tags": "git push --follow-tags"
+    "dep:check": "npx npm-check-updates",
+    "dep:install": "npx npm-check-updates -u && npm install",
+    "tags:update": "git push --follow-tags"
   },
   "devDependencies": {
     "@types/node": "^25.7.0",
     "tsdown": "^0.22.0",
-    "tsx": "^4.21.0",
+    "tsx": "^4.22.0",
     "typescript": "^6.0.3"
   },
   "dependencies": {
@@ -32,9 +30,6 @@
     "@nats-io/transport-node": "^3.4.0",
     "snappy": "^7.3.3"
   },
-  "files": [
-    "dist"
-  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

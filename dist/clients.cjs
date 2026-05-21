@@ -1,1 +1,1 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`./clients-Cy-TQhMx.cjs`);exports.JetstreamClient=e.t,exports.JetstreamCore=e.n;
+Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`./clients-BO4qZ2GE.cjs`);exports.JetstreamClient=e.t,exports.JetstreamCore=e.n;

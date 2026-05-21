@@ -1,5 +1,5 @@
-import { pack, unpack } from '../../../utils/msgpack.utils.js';
-import { compress, decompress } from '../../../utils/snappy.utils.js';
+import { pack, unpack, type MsgpackOptions } from '../../../utils/msgpack.utils.js';
+import { compress, decompress, type SnappyOptions } from '../../../utils/snappy.utils.js';
 
 // ===========================================================
 // Types
@@ -33,9 +33,9 @@ export type Payload = {
 // Utilities
 // ===========================================================
 
-export function packPayload(payload: Payload, debug: boolean = false): Uint8Array {
+export function packPayload(payload: Payload, options: MsgpackOptions = {}): Uint8Array {
     try {
-        const packed = pack(payload, debug);
+        const packed = pack(payload, options);
         return packed;
     } catch (error: unknown) {
         const err = error instanceof Error ? error.message : String(error);
@@ -43,9 +43,9 @@ export function packPayload(payload: Payload, debug: boolean = false): Uint8Arra
     }
 }
 
-export function parsePayload(data: Uint8Array, debug: boolean = false): Payload {
+export function parsePayload(data: Uint8Array, options: MsgpackOptions = {}): Payload {
     try {
-        const parsed = unpack(data, debug) as Payload;
+        const parsed = unpack(data, options) as Payload;
         return {
             data: parsed.data,
             metadata: parsed.metadata,
@@ -56,9 +56,9 @@ export function parsePayload(data: Uint8Array, debug: boolean = false): Payload 
     }
 }
 
-export function compressPayload(packed: Uint8Array, debug: boolean = false): Uint8Array {
+export function compressPayload(packed: Uint8Array, options: SnappyOptions = {}): Uint8Array {
     try {
-        const compressed = compress(packed, debug);
+        const compressed = compress(packed, options);
         return compressed;
     } catch (error: unknown) {
         const err = error instanceof Error ? error.message : String(error);
@@ -66,9 +66,9 @@ export function compressPayload(packed: Uint8Array, debug: boolean = false): Uin
     }
 }
 
-export function decompressPayload(data: Uint8Array, debug: boolean = false): Uint8Array {
+export function decompressPayload(data: Uint8Array, options: SnappyOptions = {}): Uint8Array {
     try {
-        const decompressed = decompress(data, debug);
+        const decompressed = decompress(data, options);
         return decompressed;
     } catch (error: unknown) {
         const err = error instanceof Error ? error.message : String(error);

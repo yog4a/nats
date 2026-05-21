@@ -1,6 +1,14 @@
 import { encode, decode } from '@msgpack/msgpack';
 
 // ===========================================================
+// Types
+// ===========================================================
+
+export type MsgpackOptions = {
+    debugLog?: (message: string) => void;
+};
+
+// ===========================================================
 // Utilities
 // ===========================================================
 
@@ -16,11 +24,11 @@ function formatMs(ms: number): string {
 // Functions
 // ===========================================================
 
-export function pack(input: unknown, debug: boolean = false): Uint8Array {
-    const start = debug ? performance.now() : 0;
+export function pack(input: unknown, options: MsgpackOptions = {}): Uint8Array {
+    const start = performance.now();
     const encoded = encode(input);
 
-    if (debug) {
+    if (options.debugLog) {
         const duration = performance.now() - start;
         const packedSize = encoded.byteLength;
 
@@ -29,24 +37,24 @@ export function pack(input: unknown, debug: boolean = false): Uint8Array {
         const reduction = ((jsonSize - packedSize) / jsonSize) * 100;
         const reductionPercent = Math.floor(reduction);
 
-        console.log(
-            `[msgpack] packed in ${formatMs(duration)}: ${formatKb(jsonSize)} → ${formatKb(packedSize)} (${reductionPercent}%)`
+        options.debugLog(
+            `(msgpack) packed in ${formatMs(duration)}: ${formatKb(jsonSize)} → ${formatKb(packedSize)} (${reductionPercent}%)`
         );
     }
 
     return encoded;
 }
 
-export function unpack(input: Uint8Array, debug: boolean = false): unknown {
-    const start = debug ? performance.now() : 0;
+export function unpack(input: Uint8Array, options: MsgpackOptions = {}): unknown {
+    const start = performance.now();
     const decoded = decode(input);
 
-    if (debug) {
+    if (options.debugLog) {
         const duration = performance.now() - start;
         const packedSize = input.byteLength;
 
-        console.log(
-            `[msgpack] unpacked in ${formatMs(duration)}: ${formatKb(packedSize)}`
+        options.debugLog(
+            `(msgpack) unpacked in ${formatMs(duration)}: ${formatKb(packedSize)}`
         );
     }
 

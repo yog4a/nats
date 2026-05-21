@@ -1,6 +1,14 @@
 import { compressSync, uncompressSync } from 'snappy';
 
 // ===========================================================
+// Types
+// ===========================================================
+
+export type SnappyOptions = {
+    debugLog?: (message: string) => void;
+};
+
+// ===========================================================
 // Utilities
 // ===========================================================
 
@@ -16,15 +24,16 @@ function formatMs(ms: number): string {
 // Functions
 // ===========================================================
 
-export function compress(input: Uint8Array, debug: boolean = false): Uint8Array {
-    const start = debug ? performance.now() : 0;
+export function compress(input: Uint8Array, options: SnappyOptions = {}): Uint8Array {
+    const start = performance.now();
     const compressed = compressSync(input) as Buffer;
 
-    if (debug) {
+    if (options.debugLog) {
         const duration = performance.now() - start;
         const reduction = Math.floor(((input.byteLength - compressed.byteLength) / input.byteLength) * 100);
-        console.log(
-            `[snappy] compressed in ${formatMs(duration)}: ${formatKb(input.byteLength)} → ${formatKb(compressed.byteLength)} (${reduction}%)`
+
+        options.debugLog(
+            `(snappy) compressed in ${formatMs(duration)}: ${formatKb(input.byteLength)} → ${formatKb(compressed.byteLength)} (${reduction}%)`
         );
     }
 
@@ -35,14 +44,15 @@ export function compress(input: Uint8Array, debug: boolean = false): Uint8Array 
     );
 }
 
-export function decompress(output: Uint8Array, debug: boolean = false): Uint8Array {
-    const start = debug ? performance.now() : 0;
+export function decompress(output: Uint8Array, options: SnappyOptions = {}): Uint8Array {
+    const start = performance.now();
     const decompressed = uncompressSync(output) as Buffer;
 
-    if (debug) {
+    if (options.debugLog) {
         const duration = performance.now() - start;
-        console.log(
-            `[snappy] decompressed in ${duration}ms`
+
+        options.debugLog(
+            `(snappy) decompressed in ${formatMs(duration)}`
         );
     }
 

@@ -1,33 +1,32 @@
 {
   "compilerOptions": {
-    "target": "es2023",
+    "target": "ES2023",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
+    "lib": [
+      "ES2023"
+    ],
     "strict": true,
-    "declaration": true,
-    "esModuleInterop": true,
+    "noEmit": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
     "skipLibCheck": true,
-    "sourceMap": false,
-    "types": ["node"],
+    "esModuleInterop": true,
+    "types": [
+      "node"
+    ],
     "newLine": "lf",
-    "stripInternal": true,
     "noImplicitReturns": true,
     "noImplicitOverride": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedSideEffectImports": true,
-    "noEmitOnError": true,
-    "useDefineForClassFields": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "lib": [
-      "ES2023"
-    ]
+    "resolveJsonModule": true
   },
   "exclude": [
     "node_modules",
-    "dist",
+    "dist"
   ],
   "include": [
     "src/**/*.ts",

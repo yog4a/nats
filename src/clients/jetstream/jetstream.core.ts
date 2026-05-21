@@ -44,9 +44,6 @@ export class JetstreamCore {
         this.wanted = false;
 
         const current = this.nc;
-        this.nc = null;
-        this.jsc = null;
-        this.jsm = null;
 
         if (current) {
             try {
@@ -70,6 +67,10 @@ export class JetstreamCore {
         }
 
         await this.runner.catch(() => undefined);
+
+        this.nc = null;
+        this.jsc = null;
+        this.jsm = null;
     }
 
     // ==============================
@@ -105,10 +106,10 @@ export class JetstreamCore {
                 const closedError = await connection.closed();
 
                 if (this.nc === connection) {
+                    this.connection.close();
                     this.nc = null;
                     this.jsc = null;
                     this.jsm = null;
-                    this.connection.close();
                 }
 
                 if (closedError) {
@@ -122,12 +123,13 @@ export class JetstreamCore {
                 }
             }
             catch (runnerError) {
+                this.connection.close();
+
                 if (this.nc === connection) {
                     this.nc = null;
                     this.jsc = null;
                     this.jsm = null;
                 }
-                this.connection.close();
 
                 this.options.onError?.(
                     "NATS lifecycle error:",

@@ -1,7 +1,7 @@
-import { t as __name } from "./chunk-cy2TeOE5.cjs";
-import { S as StreamConfig, h as PubAck, i as ConsumerConfig$1, l as DeliveryInfo, m as JsMsg, n as ConsumeOptions, o as ConsumerMessages, x as StoredMsg } from "./nats-jetstream-BL4kUK0G.cjs";
-import { t as JetstreamClient } from "./clients-CsEIqCln.cjs";
-import { t as MsgHdrs } from "./libs-B5j4qCBb.cjs";
+import { t as __name } from "./chunk-UvegZiLi.mjs";
+import { S as StreamConfig, h as PubAck, i as ConsumerConfig$1, l as DeliveryInfo, m as JsMsg, n as ConsumeOptions, o as ConsumerMessages, x as StoredMsg } from "./nats-jetstream-Do5nMsva.mjs";
+import { t as JetstreamClient } from "./clients-DffC8C-_.mjs";
+import { t as MsgHdrs } from "./libs-7Cj_ApGe.mjs";
 
 //#region src/modules/stream/modules/publisher.types.d.ts
 /**
@@ -24,7 +24,7 @@ type PublisherOptions = {
 //#region src/modules/stream/utils/header.utils.d.ts
 type Headers = {
   /** Content encoding of the message. */contentEncoding: "snappy" | "none"; /** Content type of the message. */
-  contentType: "application/msgpack"; /** Number of milliseconds elapsed (unix timestamp) */
+  contentType: "application/json"; /** Number of milliseconds elapsed (unix timestamp) */
   createdAt: string;
 };
 //#endregion
@@ -74,8 +74,7 @@ type ConsumerCallback = (subject: string, payload: Payload, headers: Headers, in
 //#endregion
 //#region src/modules/stream/classes/common.class.d.ts
 declare class Common {
-  /** Flag to enable/disable debug mode */
-  protected readonly debug: boolean;
+  private readonly debugLog;
   /**
    * Creates a new Common instance
    * @param {PublisherOptions} options - Optional publisher options
@@ -293,4 +292,4 @@ declare class StreamConsumer extends ConsumerSetup {
 }
 //#endregion
 export { ConsumerOptions as a, PublisherConfig as c, ConsumerConfig as i, PublisherOptions as l, StreamPublisher as n, Payload as o, ConsumerCallback as r, Headers as s, StreamConsumer as t };
-//# sourceMappingURL=modules-DoJdtWuT.d.cts.map
+//# sourceMappingURL=modules-D4bbGcva.d.mts.map

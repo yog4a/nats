@@ -8,8 +8,7 @@ import { decompressPayload, parsePayload, type Payload } from '../utils/payload.
 // ===========================================================
 
 export class Common {
-    /** Flag to enable/disable debug mode */
-    protected readonly debug: boolean;
+    private readonly debugLog: (message: string) => void;
 
     // ==============================
     // Constructor
@@ -22,7 +21,7 @@ export class Common {
     constructor(
         options: PublisherOptions,
     ) {
-        this.debug = options.debug ?? false;
+        this.debugLog = options.onLog ?? (() => {});
     }
 
     // ==============================
@@ -75,11 +74,11 @@ export class Common {
      */
     private extractPayload(data: Uint8Array<ArrayBufferLike>, headers: Headers): Payload {
         if (headers.contentEncoding === 'snappy') {
-            const dPayload = decompressPayload(data, this.debug);
-            const payload = parsePayload(dPayload, this.debug);
+            const dPayload = decompressPayload(data, { debugLog: this.debugLog });
+            const payload = parsePayload(dPayload, { debugLog: this.debugLog });
             return payload;
         } else {
-            const payload = parsePayload(data, this.debug);
+            const payload = parsePayload(data, { debugLog: this.debugLog });
             return payload;
         }
     }

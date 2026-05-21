@@ -64,24 +64,26 @@ export class StreamPublisher extends PublisherSetup {
         this.incrementActivePublishes();
         try {
             // Payload (msgpack)
-            const packedPayload = packPayload(payload, this.options.debug);
+            //const packedPayload = packPayload(payload, { debugLog: this.options.onLog });
+            const rawPayload = Buffer.from(JSON.stringify(payload));
 
             // Compression
-            const sizeInBytes = packedPayload.byteLength;
-            const needsCompression = sizeInBytes > this.COMPRESSION_THRESHOLD;
+            //const sizeInBytes = packedPayload.byteLength;
+            //const needsCompression = sizeInBytes > this.COMPRESSION_THRESHOLD;
+            const needsCompression = rawPayload.byteLength > this.COMPRESSION_THRESHOLD;
 
             // Set headers
-            const contentType = "application/msgpack";
+            const contentType = "application/json";
             const contentEncoding = needsCompression ? "snappy" : "none";
             const createdAt = Date.now().toString();
             const headers = setHeaders({ contentType, contentEncoding, createdAt });
 
             // Publish the payload
             if (needsCompression) {
-                const compressedPayload = compressPayload(packedPayload, this.options.debug);
+                const compressedPayload = compressPayload(rawPayload, { debugLog: this.options.onLog });
                 return await this.send(subject, compressedPayload, headers);
             } else {
-                return await this.send(subject, packedPayload, headers);
+                return await this.send(subject, rawPayload, headers);
             }
         } 
         finally {

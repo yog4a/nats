@@ -8,7 +8,7 @@ export type Headers = {
     /** Content encoding of the message. */
     contentEncoding: "snappy" | "none";
     /** Content type of the message. */
-    contentType: "application/msgpack";
+    contentType: "application/json";
     /** Number of milliseconds elapsed (unix timestamp) */
     createdAt: string;
 };
