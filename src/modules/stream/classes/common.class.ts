@@ -74,11 +74,11 @@ export class Common {
      */
     private extractPayload(data: Uint8Array<ArrayBufferLike>, headers: Headers): Payload {
         if (headers.contentEncoding === 'snappy') {
-            const dPayload = decompressPayload(data, { debugLog: this.debugLog });
-            const payload = parsePayload(dPayload, { debugLog: this.debugLog });
+            const dPayload = decompressPayload(data, this.debugLog);
+            const payload = parsePayload(dPayload, this.debugLog);
             return payload;
         } else {
-            const payload = parsePayload(data, { debugLog: this.debugLog });
+            const payload = parsePayload(data, this.debugLog);
             return payload;
         }
     }

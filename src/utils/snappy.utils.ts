@@ -20,6 +20,11 @@ function formatMs(ms: number): string {
     return `${ms.toFixed(2)}ms`;
 }
 
+function getReductionPercent(inputBytes: number, outputBytes: number): number {
+    if (inputBytes === 0) return 0;
+    return Math.floor(((inputBytes - outputBytes) / inputBytes) * 100);
+}
+
 // ===========================================================
 // Functions
 // ===========================================================
@@ -30,10 +35,10 @@ export function compress(input: Uint8Array, options: SnappyOptions = {}): Uint8A
 
     if (options.debugLog) {
         const duration = performance.now() - start;
-        const reduction = Math.floor(((input.byteLength - compressed.byteLength) / input.byteLength) * 100);
+        const reduction = getReductionPercent(input.byteLength, compressed.byteLength);
 
         options.debugLog(
-            `(snappy) compressed in ${formatMs(duration)}: ${formatKb(input.byteLength)} → ${formatKb(compressed.byteLength)} (${reduction}%)`
+            `(snappy) compressed in ${formatMs(duration)}: ${formatKb(input.byteLength)} → ${formatKb(compressed.byteLength)} (-${reduction}%)`
         );
     }
 
@@ -50,9 +55,10 @@ export function decompress(output: Uint8Array, options: SnappyOptions = {}): Uin
 
     if (options.debugLog) {
         const duration = performance.now() - start;
+        const reduction = getReductionPercent(decompressed.byteLength, output.byteLength);
 
         options.debugLog(
-            `(snappy) decompressed in ${formatMs(duration)}`
+            `(snappy) decompressed in ${formatMs(duration)}: ${formatKb(output.byteLength)} → ${formatKb(decompressed.byteLength)} (+${reduction}%)`
         );
     }
 
